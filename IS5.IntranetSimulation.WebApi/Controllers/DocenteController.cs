@@ -65,6 +65,5 @@ namespace IS5.IntranetSimulation.WebApi.Controllers
             }
             return BadRequest();
         }
-
     }
 }

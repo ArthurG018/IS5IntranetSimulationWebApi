@@ -1,9 +1,4 @@
-using IS5.IntranetSimulation.WebApi.CrossLayer.Interface;
-using IS5.IntranetSimulation.WebApi.DomainLayer.Core;
-using IS5.IntranetSimulation.WebApi.DomainLayer.Interface;
-using IS5.IntranetSimulation.WebApi.InfraestructureLayer.Data;
-using IS5.IntranetSimulation.WebApi.InfraestructureLayer.Interface;
-using IS5.IntranetSimulation.WebApi.InfraestructureLayer.Repository;
+using IS5.IntranetSimulation.WebApi.Modules.Injection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,14 +9,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-//inyecciondp
-builder.Services.AddSingleton<IConnectionDataBase, ConnectionDataBase>();
-
-builder.Services.AddScoped<IDocenteRepository, DocenteRepository>();
-builder.Services.AddScoped<IDocenteDomain, DocenteDomain>();
-
-builder.Services.AddScoped<IEstudianteRepository, EstudianteRepository>();
-builder.Services.AddScoped<IEstudianteDomain, EstudianteDomain>();
+//AddInjection
+builder.Services.AddInjection();
 
 var app = builder.Build();
 

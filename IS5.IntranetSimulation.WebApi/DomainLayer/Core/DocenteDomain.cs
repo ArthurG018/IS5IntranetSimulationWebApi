@@ -1,7 +1,6 @@
 ﻿using IS5.IntranetSimulation.WebApi.DomainLayer.Entity;
 using IS5.IntranetSimulation.WebApi.DomainLayer.Interface;
 using IS5.IntranetSimulation.WebApi.InfraestructureLayer.Interface;
-using System.Collections;
 
 namespace IS5.IntranetSimulation.WebApi.DomainLayer.Core
 {
