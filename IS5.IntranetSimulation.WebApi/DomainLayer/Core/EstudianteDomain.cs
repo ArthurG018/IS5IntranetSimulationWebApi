@@ -21,13 +21,11 @@ namespace IS5.IntranetSimulation.WebApi.DomainLayer.Core
         public bool InsertAllEstudiante(IEnumerable<Estudiante> estudiantes)
         {
             String consulta = "";
-            String tableName = "estudiante";
             foreach (Estudiante estudiante in estudiantes)
             {
-                consulta += "INSERT INTO " + tableName + 
-                            " (codigo_universitario_estudiante, nombre_completo_estudiante, ficha_matricula_estudiante, ciclo_estudiante, escuela_estudiante) " +
-                            "VALUES ('" + estudiante.codigo_universitario_estudiante + "','" + estudiante.nombre_completo_estudiante + "','" + 
-                                          estudiante.ficha_matricula_estudiante + "','" + estudiante.ciclo_estudiante + "','" + estudiante.escuela_estudiante + "'); ";
+                String separator = (estudiante == estudiantes.Last()) ? ";" : ",";
+                consulta += $"('{estudiante.codigo_universitario_estudiante}','{estudiante.nombre_completo_estudiante}','{estudiante.ficha_matricula_estudiante}','" +
+                            $"{estudiante.ciclo_estudiante}','{estudiante.escuela_estudiante}'){separator} ";
             }
             return _estudianteRepository.InsertAllEstudiante(consulta);
         }

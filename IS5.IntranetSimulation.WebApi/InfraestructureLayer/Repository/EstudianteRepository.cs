@@ -19,13 +19,13 @@ namespace IS5.IntranetSimulation.WebApi.InfraestructureLayer.Repository
         {
             using (var db = _connection.GetConnection)
             {
-                var query = "";
+                var query = "InsertEstudiante";
                 var parameters = new DynamicParameters();
-                parameters.Add("", estudiante.codigo_universitario_estudiante);
-                parameters.Add("", estudiante.nombre_completo_estudiante);
-                parameters.Add("", estudiante.ficha_matricula_estudiante);
-                parameters.Add("", estudiante.ciclo_estudiante);
-                parameters.Add("", estudiante.escuela_estudiante);
+                parameters.Add("Codigo", estudiante.codigo_universitario_estudiante);
+                parameters.Add("Nombre", estudiante.nombre_completo_estudiante);
+                parameters.Add("Ficha", estudiante.ficha_matricula_estudiante);
+                parameters.Add("Ciclo", estudiante.ciclo_estudiante);
+                parameters.Add("Escuela", estudiante.escuela_estudiante);
 
                 var result = db.Execute(query, param: parameters, commandType: CommandType.StoredProcedure);
                 return result > 0;
@@ -47,9 +47,9 @@ namespace IS5.IntranetSimulation.WebApi.InfraestructureLayer.Repository
         {
             using (var db = _connection.GetConnection)
             {
-                var query = "";
+                var query = "GetEstudiante";
                 var parameters = new DynamicParameters();
-                parameters.Add("", id);
+                parameters.Add("id", id);
 
                 var result = db.QuerySingle<Estudiante>(query, param: parameters, commandType: CommandType.StoredProcedure);
                 return result;

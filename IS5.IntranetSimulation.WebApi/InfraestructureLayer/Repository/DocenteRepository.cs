@@ -19,9 +19,10 @@ namespace IS5.IntranetSimulation.WebApi.InfraestructureLayer.Repository
         {
             using (var dbConnection = _connection.GetConnection)
             {
-                var query = "";
+                var query = "InsertDocente";
                 var parameters = new DynamicParameters();
-                parameters.Add("", docente.nombre_completo_docente);
+                parameters.Add("Nombre", docente.nombre_completo_docente);
+                parameters.Add("Dni", docente.dni_docente);
 
                 var result = dbConnection.Execute(query, param: parameters, commandType: CommandType.StoredProcedure);
                 return result > 0;
@@ -44,9 +45,9 @@ namespace IS5.IntranetSimulation.WebApi.InfraestructureLayer.Repository
         {
             using (var dbConnection = _connection.GetConnection)
             {
-                var query = "";
+                var query = "GetDocente";
                 var parameters = new DynamicParameters();
-                parameters.Add("", id);
+                parameters.Add("id", id);
 
                 var result = dbConnection.QuerySingle<Docente>(query, param: parameters, commandType: CommandType.StoredProcedure);
                 return result;

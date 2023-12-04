@@ -21,10 +21,10 @@ namespace IS5.IntranetSimulation.WebApi.DomainLayer.Core
         public bool InsertAllDocente(IEnumerable<Docente> docentes)
         {
             String consulta = "";
-            String tableName = "docente";
             foreach (Docente docente in docentes)
             {
-                consulta += "INSERT INTO "+tableName+" (nombre_completo_docente) VALUES ('"+docente.nombre_completo_docente+"'); ";
+                String separator = (docente == docentes.Last()) ? ";" :"," ;
+                consulta += $"('{docente.nombre_completo_docente}'){separator} ";
             }
             return _docenteRepository.InsertAllDocente(consulta);
         }

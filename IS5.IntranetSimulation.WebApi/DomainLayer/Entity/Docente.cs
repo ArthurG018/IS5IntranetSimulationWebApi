@@ -4,5 +4,6 @@
     {
         public int id_docente { get; set; }
         public String nombre_completo_docente { get; set; }
+        public String dni_docente { get; set; }
     }
 }

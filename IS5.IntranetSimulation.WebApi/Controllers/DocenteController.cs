@@ -29,6 +29,31 @@ namespace IS5.IntranetSimulation.WebApi.Controllers
             return BadRequest();
         }
 
+        [HttpPost]
+        [ActionName("Insert")]
+        public IActionResult Insert([FromBody] Docente docente)
+        {
+            if (docente == null) return BadRequest();
+            var response = _docenteDomain.InsertDocente(docente);
+            if (response)
+            {
+                return Ok(response);
+            }
+            return BadRequest();
+        }
+
+        [HttpGet]
+        [ActionName("Get")]
+        public IActionResult Get(int id)
+        {
+            var response = _docenteDomain.GetDocente(id);
+            if (response != null)
+            {
+                return Ok(response);
+            }
+            return BadRequest();
+        }
+
         [HttpGet]
         [ActionName("GetAll")]
         public IActionResult GetAll()

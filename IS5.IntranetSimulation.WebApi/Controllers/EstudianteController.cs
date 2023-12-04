@@ -1,7 +1,5 @@
-﻿using IS5.IntranetSimulation.WebApi.DomainLayer.Core;
-using IS5.IntranetSimulation.WebApi.DomainLayer.Entity;
+﻿using IS5.IntranetSimulation.WebApi.DomainLayer.Entity;
 using IS5.IntranetSimulation.WebApi.DomainLayer.Interface;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IS5.IntranetSimulation.WebApi.Controllers
@@ -29,6 +27,32 @@ namespace IS5.IntranetSimulation.WebApi.Controllers
             }
             return BadRequest();
         }
+
+        [HttpPost]
+        [ActionName("Insert")]
+        public IActionResult Insert([FromBody] Estudiante estudiante)
+        {
+            if (estudiante == null) return BadRequest();
+            var response = _estudianteDomain.InsertEstudiante(estudiante);
+            if (response)
+            {
+                return Ok(response);
+            }
+            return BadRequest();
+        }
+
+        [HttpGet]
+        [ActionName("Get")]
+        public IActionResult Get(int id)
+        {
+            var response = _estudianteDomain.GetEstudiante(id);
+            if (response != null)
+            {
+                return Ok(response);
+            }
+            return BadRequest();
+        }
+
         [HttpGet]
         [ActionName("GetAll")]
         public IActionResult GetAll()
