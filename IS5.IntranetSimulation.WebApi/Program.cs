@@ -1,4 +1,5 @@
 using IS5.IntranetSimulation.WebApi.Modules.Injection;
+using IS5.IntranetSimulation.WebApi.Modules.Mapper;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,8 @@ builder.Services.AddSwaggerGen();
 
 //AddInjection
 builder.Services.AddInjection();
+
+builder.Services.AddMapper();
 
 var app = builder.Build();
 

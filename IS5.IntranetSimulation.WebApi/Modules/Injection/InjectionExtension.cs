@@ -1,4 +1,7 @@
-﻿using IS5.IntranetSimulation.WebApi.CrossLayer.Interface;
+﻿using IS5.IntranetSimulation.WebApi.AplicationLayer.Interface;
+using IS5.IntranetSimulation.WebApi.ApplicationLayer.Interface;
+using IS5.IntranetSimulation.WebApi.ApplicationLayer.Main;
+using IS5.IntranetSimulation.WebApi.CrossLayer.Interface;
 using IS5.IntranetSimulation.WebApi.DomainLayer.Core;
 using IS5.IntranetSimulation.WebApi.DomainLayer.Interface;
 using IS5.IntranetSimulation.WebApi.InfraestructureLayer.Data;
@@ -13,11 +16,13 @@ namespace IS5.IntranetSimulation.WebApi.Modules.Injection
         {
             services.AddSingleton<IConnectionDataBase, ConnectionDataBase>();
 
-            services.AddScoped<IDocenteRepository, DocenteRepository>();
-            services.AddScoped<IDocenteDomain, DocenteDomain>();
+            services.AddScoped<IProfesorApplication, ProfessorApplication>();
+            services.AddScoped<IProfessorDomain, ProfessorDomain>();
+            services.AddScoped<IProfessorRepository, ProfessorRepository>();
 
-            services.AddScoped<IEstudianteRepository, EstudianteRepository>();
-            services.AddScoped<IEstudianteDomain, EstudianteDomain>();
+            services.AddScoped<IStudentApplication, StudentApplication>();
+            services.AddScoped<IStudentDomain, StudentDomain>();
+            services.AddScoped<IStudentRepository, StudentRepository>();
 
             return services;
         }

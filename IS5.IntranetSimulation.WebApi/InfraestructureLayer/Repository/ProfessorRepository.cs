@@ -2,64 +2,70 @@
 using IS5.IntranetSimulation.WebApi.CrossLayer.Interface;
 using IS5.IntranetSimulation.WebApi.DomainLayer.Entity;
 using IS5.IntranetSimulation.WebApi.InfraestructureLayer.Interface;
+using IS5.IntranetSimulation.WebApi.Modules.HelperMapping;
 using System.Data;
 
 namespace IS5.IntranetSimulation.WebApi.InfraestructureLayer.Repository
 {
-    public class DocenteRepository:IDocenteRepository
+    public class ProfessorRepository : IProfessorRepository
     {
         private readonly IConnectionDataBase _connection;
 
-        public DocenteRepository(IConnectionDataBase connection)
+        public ProfessorRepository(IConnectionDataBase connection)
         {
             _connection = connection;
         }
+
         #region CRUD
-        public bool InsertDocente(Docente docente)
+        public bool InsertProfessor(Professor professor)
         {
             using (var dbConnection = _connection.GetConnection)
             {
-                var query = "InsertDocente";
+                var query = "sp_insert_professor";
                 var parameters = new DynamicParameters();
-                parameters.Add("Nombre", docente.nombre_completo_docente);
-                parameters.Add("Dni", docente.dni_docente);
+                parameters.Add("full_name", professor.FullName);
+                parameters.Add("dni", professor.Dni);
 
                 var result = dbConnection.Execute(query, param: parameters, commandType: CommandType.StoredProcedure);
                 return result > 0;
             }
         }
 
-        public bool InsertAllDocente(String consulta)
+        public bool InsertAllProfessor(String consulta)
         {
             using (var dbConnection = _connection.GetConnection)
             {
-                var query = "InsertAllDocente";
+                var query = "sp_insert_all_professors";
                 var parameters = new DynamicParameters();
-                parameters.Add("Consulta", consulta);
+                parameters.Add("query", consulta);
 
                 var result = dbConnection.Execute(query, param: parameters, commandType: CommandType.StoredProcedure);
                 return result > 0;
             }
         }
-        public Docente GetDocente(int id)
+        public Professor GetProfessor(int id)
         {
             using (var dbConnection = _connection.GetConnection)
             {
-                var query = "GetDocente";
+                var query = "sp_get_professor_by_id";
                 var parameters = new DynamicParameters();
-                parameters.Add("id", id);
+                parameters.Add("professor_id", id);
 
-                var result = dbConnection.QuerySingle<Docente>(query, param: parameters, commandType: CommandType.StoredProcedure);
+                MappingForDescription.MapProfessor();
+
+                var result = dbConnection.QuerySingle<Professor>(query, param: parameters, commandType: CommandType.StoredProcedure);
                 return result;
             }
         }
-        public IEnumerable<Docente> GetAllDocente()
+        public IEnumerable<Professor> GetAllProfessor()
         {
             using (var dbConnection = _connection.GetConnection)
             {
-                var query = "GetAllDocente";
+                var query = "sp_get_all_professors";
 
-                var result = dbConnection.Query<Docente>(query, commandType: CommandType.StoredProcedure);
+                MappingForDescription.MapProfessor();
+
+                var result = dbConnection.Query<Professor>(query, commandType: CommandType.StoredProcedure);
                 return result;
             }
         }

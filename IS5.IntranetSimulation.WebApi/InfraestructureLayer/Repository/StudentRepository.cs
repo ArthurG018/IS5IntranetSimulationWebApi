@@ -2,66 +2,71 @@
 using IS5.IntranetSimulation.WebApi.CrossLayer.Interface;
 using IS5.IntranetSimulation.WebApi.DomainLayer.Entity;
 using IS5.IntranetSimulation.WebApi.InfraestructureLayer.Interface;
+using IS5.IntranetSimulation.WebApi.Modules.HelperMapping;
 using System.Data;
 
 namespace IS5.IntranetSimulation.WebApi.InfraestructureLayer.Repository
 {
-    public class EstudianteRepository:IEstudianteRepository
+    public class StudentRepository:IStudentRepository
     {
         private readonly IConnectionDataBase _connection;
 
-        public EstudianteRepository(IConnectionDataBase connection)
+        public StudentRepository(IConnectionDataBase connection)
         {
             _connection = connection;
         }
         #region CRUD
-        public bool InsertEstudiante(Estudiante estudiante)
+        public bool InsertStudent(Student student)
         {
             using (var db = _connection.GetConnection)
             {
-                var query = "InsertEstudiante";
+                var query = "sp_insert_student";
                 var parameters = new DynamicParameters();
-                parameters.Add("Codigo", estudiante.codigo_universitario_estudiante);
-                parameters.Add("Nombre", estudiante.nombre_completo_estudiante);
-                parameters.Add("Ficha", estudiante.ficha_matricula_estudiante);
-                parameters.Add("Ciclo", estudiante.ciclo_estudiante);
-                parameters.Add("Escuela", estudiante.escuela_estudiante);
+                parameters.Add("university_code", student.UniversityCode);
+                parameters.Add("full_name", student.FullName);
+                parameters.Add("registration_form_number", student.RegistrationFormNumber);
+                parameters.Add("semester", student.Semester);
+                parameters.Add("school", student.School);
 
                 var result = db.Execute(query, param: parameters, commandType: CommandType.StoredProcedure);
                 return result > 0;
             }
         }
-        public bool InsertAllEstudiante(String consulta)
+        public bool InsertAllStudent(String consulta)
         {
             using (var db = _connection.GetConnection)
             {
-                var query = "InsertAllEstudiante";
+                var query = "sp_insert_all_students";
                 var parameters = new DynamicParameters();
-                parameters.Add("Consulta", consulta);
+                parameters.Add("query", consulta);
 
                 var result = db.Execute(query, param: parameters, commandType: CommandType.StoredProcedure);
                 return result > 0;
             }
         }
-        public Estudiante GetEstudiante(int id)
+        public Student GetStudent(int id)
         {
             using (var db = _connection.GetConnection)
             {
-                var query = "GetEstudiante";
+                var query = "sp_get_student_by_id";
                 var parameters = new DynamicParameters();
-                parameters.Add("id", id);
+                parameters.Add("student_id", id);
 
-                var result = db.QuerySingle<Estudiante>(query, param: parameters, commandType: CommandType.StoredProcedure);
+                MappingForDescription.MapStudent();
+
+                var result = db.QuerySingle<Student>(query, param: parameters, commandType: CommandType.StoredProcedure);
                 return result;
             }
         }
-        public IEnumerable<Estudiante> GetAllEstudiante()
+        public IEnumerable<Student> GetAllStudent()
         {
             using (var db = _connection.GetConnection)
             {
-                var query = "GetAllEstudiante";
+                var query = "sp_get_all_students";
 
-                var result = db.Query<Estudiante>(query, commandType: CommandType.StoredProcedure);
+                MappingForDescription.MapStudent();
+
+                var result = db.Query<Student>(query, commandType: CommandType.StoredProcedure);
                 return result;
             }
         }

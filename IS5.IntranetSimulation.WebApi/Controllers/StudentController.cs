@@ -1,27 +1,26 @@
-﻿using IS5.IntranetSimulation.WebApi.DomainLayer.Entity;
-using IS5.IntranetSimulation.WebApi.DomainLayer.Interface;
+﻿using IS5.IntranetSimulation.WebApi.AplicationLayer.Dto;
+using IS5.IntranetSimulation.WebApi.ApplicationLayer.Interface;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections;
 
 namespace IS5.IntranetSimulation.WebApi.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class DocenteController : ControllerBase
+    public class StudentController : ControllerBase
     {
-        private readonly IDocenteDomain _docenteDomain;
+        private IStudentApplication _studentApplication;
 
-        public DocenteController(IDocenteDomain docenteDomain)
+        public StudentController(IStudentApplication studentApplication)
         {
-            _docenteDomain = docenteDomain;
+            _studentApplication = studentApplication;
         }
 
         [HttpPost]
         [ActionName("InsertAll")]
-        public IActionResult InsertAll([FromBody] IEnumerable<Docente> docentes)
+        public IActionResult InsertAll([FromBody] IEnumerable<StudentDto> studentsDto)
         {
-            if (docentes == null) return BadRequest();
-            var response = _docenteDomain.InsertAllDocente(docentes);
+            if (studentsDto == null) return BadRequest();
+            var response = _studentApplication.InsertAllStudent(studentsDto);
             if (response)
             {
                 return Ok(response);
@@ -31,10 +30,10 @@ namespace IS5.IntranetSimulation.WebApi.Controllers
 
         [HttpPost]
         [ActionName("Insert")]
-        public IActionResult Insert([FromBody] Docente docente)
+        public IActionResult Insert([FromBody] StudentDto studentDto)
         {
-            if (docente == null) return BadRequest();
-            var response = _docenteDomain.InsertDocente(docente);
+            if (studentDto == null) return BadRequest();
+            var response = _studentApplication.InsertStudent(studentDto);
             if (response)
             {
                 return Ok(response);
@@ -46,7 +45,7 @@ namespace IS5.IntranetSimulation.WebApi.Controllers
         [ActionName("Get")]
         public IActionResult Get(int id)
         {
-            var response = _docenteDomain.GetDocente(id);
+            var response = _studentApplication.GetStudent(id);
             if (response != null)
             {
                 return Ok(response);
@@ -58,7 +57,7 @@ namespace IS5.IntranetSimulation.WebApi.Controllers
         [ActionName("GetAll")]
         public IActionResult GetAll()
         {
-            var response = _docenteDomain.GetAllDocente();
+            var response = _studentApplication.GetAllStudent();
             if (response != null)
             {
                 return Ok(response);
