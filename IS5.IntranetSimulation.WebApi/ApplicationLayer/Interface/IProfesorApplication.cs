@@ -12,7 +12,7 @@ namespace IS5.IntranetSimulation.WebApi.AplicationLayer.Interface
         #endregion
 
         #region SERVICIO   
-        bool ValidateDni(String dni);
+        String ValidateDni(String dni);
         #endregion
     }
 }

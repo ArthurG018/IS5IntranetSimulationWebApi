@@ -73,11 +73,14 @@ namespace IS5.IntranetSimulation.WebApi.ApplicationLayer.Main
         #endregion
 
         #region SERVICIO   
-        public bool ValidateDni(String dni)
+        public String ValidateDni(String dni)
         {
             try
             {
-                return _professorDomain.ValidateDni(dni);
+                var result = _professorDomain.ValidateDni(dni);
+
+                
+                return (result) ? "validate" : "invalidate";
             }
             catch (Exception)
             {
