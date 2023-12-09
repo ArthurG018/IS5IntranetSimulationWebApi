@@ -12,7 +12,7 @@ namespace IS5.IntranetSimulation.WebApi.DomainLayer.Interface
         #endregion
 
         #region SERVICIO   
-        bool ValidateDni(String dni);
+        Professor? ValidateDni(String dni);
         #endregion
     }
 }

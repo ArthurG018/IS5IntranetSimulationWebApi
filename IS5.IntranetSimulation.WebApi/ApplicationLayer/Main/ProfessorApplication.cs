@@ -3,6 +3,8 @@ using IS5.IntranetSimulation.WebApi.AplicationLayer.Dto;
 using IS5.IntranetSimulation.WebApi.AplicationLayer.Interface;
 using IS5.IntranetSimulation.WebApi.DomainLayer.Entity;
 using IS5.IntranetSimulation.WebApi.DomainLayer.Interface;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace IS5.IntranetSimulation.WebApi.ApplicationLayer.Main
 {
@@ -78,9 +80,13 @@ namespace IS5.IntranetSimulation.WebApi.ApplicationLayer.Main
             try
             {
                 var result = _professorDomain.ValidateDni(dni);
+                var status = (result != null) ;
 
-                
-                return (result) ? "validate" : "invalidate";
+                var data = new { Status = status.ToString(), Nombre = result?.FullName.ToString() };
+
+                var convert = JsonConvert.SerializeObject(data);
+
+                return convert;
             }
             catch (Exception)
             {

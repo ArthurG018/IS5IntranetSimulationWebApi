@@ -39,10 +39,10 @@ namespace IS5.IntranetSimulation.WebApi.DomainLayer.Core
         #endregion
 
         #region SERVICIO   
-        public bool ValidateDni(String dni)
+        public Professor? ValidateDni(String dni)
         {
-            var professor = _professorRepository.GetAllProfessor().Where(x=>x.Dni.Equals(dni));
-            return (professor.Count() > 0) ;
+            var professor = _professorRepository.GetAllProfessor().FirstOrDefault(x=>x.Dni.Equals(dni));
+            return professor;
         }
         #endregion
     }
