@@ -38,5 +38,13 @@ namespace IS5.IntranetSimulation.WebApi.DomainLayer.Core
             return RemoveSpaces.RemoveSpaceListStudent(_studentRepository.GetAllStudent());
         }
         #endregion
+
+        #region SERVICIO
+        public IEnumerable<Student> GetAllSemesterSchool(String semester, String school)
+        {
+            var students = _studentRepository.GetAllStudent().Where(x=>x.Semester.Equals(semester) && x.School.Equals(school));
+            return students;
+        }
+        #endregion
     }
 }

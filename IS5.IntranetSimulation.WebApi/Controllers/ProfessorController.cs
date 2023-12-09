@@ -67,5 +67,13 @@ namespace IS5.IntranetSimulation.WebApi.Controllers
             }
             return BadRequest();
         }
+
+        [HttpGet]
+        [ActionName("ValidateDni")]
+        public IActionResult ValidateDni(String dni)
+        {
+            var response = _profesorApplication.ValidateDni(dni);
+            return Ok(response);
+        }
     }
 }

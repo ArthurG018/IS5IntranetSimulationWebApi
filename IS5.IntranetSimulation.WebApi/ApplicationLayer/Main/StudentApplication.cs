@@ -72,5 +72,23 @@ namespace IS5.IntranetSimulation.WebApi.ApplicationLayer.Main
             }
         }
         #endregion
+
+        #region SERVICIO
+        public IEnumerable<StudentDto> GetAllSemesterSchool(String semester, String school)
+        {
+            try
+            {
+                var students = _studentDomain.GetAllSemesterSchool(semester, school);
+                var studentsDto = _mapper.Map<IEnumerable<StudentDto>>(students);
+                return studentsDto;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        #endregion
+
     }
 }

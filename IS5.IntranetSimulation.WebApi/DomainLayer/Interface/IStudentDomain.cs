@@ -10,5 +10,9 @@ namespace IS5.IntranetSimulation.WebApi.DomainLayer.Interface
         Student GetStudent(int id);
         IEnumerable<Student> GetAllStudent();
         #endregion
+
+        #region SERVICIO
+        IEnumerable<Student> GetAllSemesterSchool(String semester, String school);
+        #endregion
     }
 }

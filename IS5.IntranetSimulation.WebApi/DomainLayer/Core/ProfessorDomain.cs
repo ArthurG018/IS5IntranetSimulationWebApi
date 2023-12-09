@@ -37,5 +37,13 @@ namespace IS5.IntranetSimulation.WebApi.DomainLayer.Core
             return RemoveSpaces.RemoveSpaceListProfessor(_professorRepository.GetAllProfessor());
         }
         #endregion
+
+        #region SERVICIO   
+        public bool ValidateDni(String dni)
+        {
+            var professor = _professorRepository.GetAllProfessor().Where(x=>x.Dni.Equals(dni));
+            return (professor.Count() > 0) ;
+        }
+        #endregion
     }
 }

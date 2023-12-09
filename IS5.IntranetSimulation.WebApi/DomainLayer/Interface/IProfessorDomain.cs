@@ -10,5 +10,9 @@ namespace IS5.IntranetSimulation.WebApi.DomainLayer.Interface
         Professor GetProfessor(int id);
         IEnumerable<Professor> GetAllProfessor();
         #endregion
+
+        #region SERVICIO   
+        bool ValidateDni(String dni);
+        #endregion
     }
 }

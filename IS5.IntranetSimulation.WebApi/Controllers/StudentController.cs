@@ -64,5 +64,17 @@ namespace IS5.IntranetSimulation.WebApi.Controllers
             }
             return BadRequest();
         }
+
+        [HttpGet]
+        [ActionName("GetAllSemesterSchool")]
+        public IActionResult GetAllSemesterSchool(String semester, String school)
+        {
+            var response = _studentApplication.GetAllSemesterSchool(semester, school);
+            if (response != null)
+            {
+                return Ok(response);
+            }
+            return BadRequest();
+        }
     }
 }
