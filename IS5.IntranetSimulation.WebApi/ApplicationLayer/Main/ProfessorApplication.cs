@@ -82,7 +82,7 @@ namespace IS5.IntranetSimulation.WebApi.ApplicationLayer.Main
                 var result = _professorDomain.ValidateDni(dni);
                 var status = (result != null) ;
 
-                var data = new { Status = status.ToString(), Nombre = result?.FullName.ToString() };
+                var data = new { Status = status.ToString(), FullName = result?.FullName.ToString() };
 
                 var convert = JsonConvert.SerializeObject(data);
 
